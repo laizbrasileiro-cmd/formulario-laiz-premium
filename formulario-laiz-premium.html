@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laiz Aline | Instrutora MOB — Formulário de Seleção</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --vinho:    #7D2B3E;
+    --vinho-dk: #5C1F2E;
+    --vinho-lt: #9E3A51;
+    --rose:     #C4867A;
+    --rose-lt:  #E8C4BC;
+    --dourado:  #C9A96E;
+    --dourado-lt:#EAD9B8;
+    --creme:    #F7F0E6;
+    --creme-lt: #FDF9F4;
+    --grafite:  #3D2B2B;
+    --muted:    #7A5F5F;
+    --border:   #DDD0C4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--creme);
+    color: var(--grafite);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    width: 100%;
+    background: linear-gradient(158deg, #5C1F2E 0%, #7D2B3E 55%, #9E3A51 100%);
+    padding: 72px 28px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, rgba(201,169,110,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 90%, rgba(196,134,122,0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), transparent);
+  }
+
+  .ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(253,249,244,0.45);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 5.5vw, 54px);
+    font-weight: 400;
+    color: var(--creme-lt);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose-lt);
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 auto 24px;
+    max-width: 280px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.45s;
+  }
+  .hero-divider span { flex: 1; height: 1px; background: rgba(201,169,110,0.4); }
+  .hero-divider i { color: var(--dourado); font-style: normal; font-size: 12px; }
+
+  .hero p {
+    font-size: 14.5px;
+    color: rgba(253,249,244,0.68);
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.75;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.55s;
+  }
+  .hero p strong { color: rgba(253,249,244,0.88); font-weight: 400; }
+
+  /* ── FORM WRAP ── */
+  .form-wrap {
+    width: 100%;
+    max-width: 660px;
+    padding: 52px 28px 88px;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-track {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 44px;
+  }
+  .p-seg {
+    height: 2px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.4s ease;
+  }
+  .p-seg.done   { background: var(--dourado); }
+  .p-seg.active { background: var(--vinho); }
+
+  /* ── STEP ── */
+  .step { display: none; }
+  .step.active {
+    display: block;
+    animation: fadeUp 0.45s ease forwards;
+  }
+
+  .step-tag {
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 400;
+    color: var(--grafite);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .question em { font-style: italic; color: var(--vinho); }
+
+  .q-sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 34px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 11px; }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    background: var(--creme-lt);
+    text-align: left;
+    width: 100%;
+  }
+  .option:hover {
+    border-color: var(--rose);
+    background: #FDF5F3;
+  }
+  .option.selected {
+    border-color: var(--vinho);
+    background: #FAF0F2;
+  }
+
+  .opt-mark {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.22s ease;
+    position: relative;
+  }
+  .option:hover .opt-mark   { border-color: var(--rose); }
+  .option.selected .opt-mark {
+    border-color: var(--vinho);
+    background: var(--vinho);
+  }
+  .option.selected .opt-mark::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .opt-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--grafite);
+    font-weight: 300;
+  }
+
+  /* ── INPUTS ── */
+  .input-group { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    background: var(--creme-lt);
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--grafite);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus { border-color: var(--vinho); }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 34px;
+  }
+
+  .btn-back {
+    font-size: 12.5px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--grafite); }
+
+  .btn-next {
+    background: var(--vinho);
+    color: var(--creme-lt);
+    border: none;
+    padding: 13px 34px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.25s;
+    font-weight: 500;
+  }
+  .btn-next:hover:not(:disabled) { background: var(--vinho-dk); }
+  .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ── NOTICE ── */
+  .notice {
+    margin-top: 26px;
+    padding: 15px 18px;
+    background: rgba(201,169,110,0.1);
+    border-left: 2px solid var(--dourado);
+    border-radius: 2px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── SUCCESS ── */
+  .success-screen, .disqualify-screen {
+    display: none;
+    text-align: center;
+    padding: 64px 28px;
+    animation: fadeUp 0.55s ease forwards;
+  }
+
+  .end-ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--dourado);
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .success-screen h2, .disqualify-screen h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    color: var(--grafite);
+    line-height: 1.25;
+    margin-bottom: 20px;
+  }
+  .success-screen h2 em, .disqualify-screen h2 em {
+    font-style: italic;
+    color: var(--vinho);
+  }
+
+  .success-screen p, .disqualify-screen p {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+  .success-screen p strong { color: var(--grafite); font-weight: 400; }
+
+  .success-seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: 1px solid var(--dourado-lt);
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  .btn-entry {
+    display: inline-block;
+    padding: 13px 28px;
+    border: 1.5px solid var(--vinho);
+    color: var(--vinho);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    background: none;
+    transition: all 0.25s;
+    font-weight: 500;
+  }
+  .btn-entry:hover { background: var(--vinho); color: white; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 56px 20px 52px; }
+    .form-wrap { padding: 36px 20px 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="ornament">✦ &nbsp; Laiz Aline &nbsp; ✦</div>
+  <div class="brand">Instrutora MOB · Método de Ovulação Billings</div>
+  <h1>Algumas mulheres já sabem<br>que estão <em>prontas para dar<br>o próximo passo.</em></h1>
+  <div class="hero-divider"><span></span><i>✦</i><span></span></div>
+  <p>Este formulário existe para que eu entenda <strong>o seu momento com cuidado</strong>, antes de qualquer conversa. Não é triagem — é respeito pelo seu tempo e pelo meu trabalho.</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div class="progress-track">
+    <div class="p-seg active" id="d1"></div>
+    <div class="p-seg" id="d2"></div>
+    <div class="p-seg" id="d3"></div>
+    <div class="p-seg" id="d4"></div>
+    <div class="p-seg" id="d5"></div>
+  </div>
+
+  <!-- P1 -->
+  <div class="step active" id="step-1">
+    <div class="step-tag">Passo 1 de 5</div>
+    <div class="question">O que está <em>te movendo</em><br>até aqui hoje?</div>
+    <div class="q-sub">Escolha o que melhor descreve o que você está vivendo agora.</div>
+    <div class="options">
+      <button class="option" onclick="sel(this,1)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Quero engravidar naturalmente — e sinto que o tempo está passando</div>
+      </button>
+      <button class="option" onclick="sel(this,1)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Quero sair do anticoncepcional hormonal, mas tenho medo de não saber como cuidar do meu corpo</div>
+      </button>
+      <button class="option" onclick="sel(this,1)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Meu ciclo é irregular ou tenho sintomas que me preocupam — e quero entender o que está acontecendo</div>
+      </button>
+      <button class="option" onclick="sel(this,1)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Já tentei outros caminhos — e quero uma abordagem diferente, mais integrativa e com suporte real</div>
+      </button>
+    </div>
+    <div class="nav">
+      <span></span>
+      <button class="btn-next" id="n1" onclick="go(2)" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="step" id="step-2">
+    <div class="step-tag">Passo 2 de 5</div>
+    <div class="question">Há quanto tempo você<br>carrega <em>esse peso</em>?</div>
+    <div class="q-sub">Quero entender a profundidade do que você está vivendo.</div>
+    <div class="options">
+      <button class="option" onclick="sel(this,2)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Estou começando agora a me aprofundar nessa questão</div>
+      </button>
+      <button class="option" onclick="sel(this,2)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Entre 6 meses e 1 ano — já pesquisei, mas ainda não encontrei o que precisava</div>
+      </button>
+      <button class="option" onclick="sel(this,2)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Mais de 1 ano — isso já afeta minha rotina, meu relacionamento e minha paz</div>
+      </button>
+      <button class="option" onclick="sel(this,2)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Há anos — já tentei muita coisa e estou em busca de algo que realmente funcione</div>
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="go(1)">← Voltar</button>
+      <button class="btn-next" id="n2" onclick="go(3)" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="step" id="step-3">
+    <div class="step-tag">Passo 3 de 5</div>
+    <div class="question">Como você cuida<br>da sua saúde <em>hoje</em>?</div>
+    <div class="q-sub">Isso me ajuda a entender em que momento da jornada você está.</div>
+    <div class="options">
+      <button class="option" onclick="sel(this,3,false)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Já invisto regularmente na minha saúde — tenho acompanhamentos, faço exames, cuido da alimentação</div>
+      </button>
+      <button class="option" onclick="sel(this,3,false)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Ainda não invisto de forma estruturada, mas isso mudou — estou pronta para priorizar agora</div>
+      </button>
+      <button class="option" onclick="sel(this,3,false)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Tenho vontade, mas preciso entender melhor o que está disponível e o que faz sentido para mim</div>
+      </button>
+      <button class="option" onclick="sel(this,3,true)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Neste momento, minha situação financeira não permite um investimento em acompanhamento especializado</div>
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="go(2)">← Voltar</button>
+      <button class="btn-next" id="n3" onclick="go(4)" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- P4 -->
+  <div class="step" id="step-4">
+    <div class="step-tag">Passo 4 de 5</div>
+    <div class="question">O que você está<br><em>buscando</em> de verdade?</div>
+    <div class="q-sub">Não existe resposta certa — existe a sua resposta honesta.</div>
+    <div class="options">
+      <button class="option" onclick="sel(this,4)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Acompanhamento real, contínuo, com alguém que me conheça e me oriente — não apenas informação</div>
+      </button>
+      <button class="option" onclick="sel(this,4)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Aprender a ler meu próprio corpo com autonomia, com suporte especializado enquanto aprendo</div>
+      </button>
+      <button class="option" onclick="sel(this,4)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Um ponto de partida claro — quero entender o que está acontecendo antes de decidir o próximo passo</div>
+      </button>
+      <button class="option" onclick="sel(this,4)">
+        <div class="opt-mark"></div>
+        <div class="opt-text">Ainda estou explorando — quero entender melhor como funciona antes de me comprometer</div>
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="go(3)">← Voltar</button>
+      <button class="btn-next" id="n4" onclick="go(5)" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- P5 -->
+  <div class="step" id="step-5">
+    <div class="step-tag">Passo 5 de 5</div>
+    <div class="question">Para onde posso<br><em>te encontrar</em>?</div>
+    <div class="q-sub">O retorno acontece em até 48h úteis — apenas para os perfis selecionados.</div>
+    <div class="input-group">
+      <label>Seu nome</label>
+      <input type="text" id="nome" placeholder="Como prefere ser chamada" oninput="chk()">
+    </div>
+    <div class="input-group">
+      <label>WhatsApp com DDD</label>
+      <input type="tel" id="wpp" placeholder="(11) 99999-9999" oninput="chk()">
+    </div>
+    <div class="notice">
+      Suas respostas são tratadas com total confidencialidade. Nenhuma informação será compartilhada ou usada fora do contexto desta conversa.
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="go(4)">← Voltar</button>
+      <button class="btn-next" id="n5" onclick="submit()" disabled>Enviar</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success">
+    <span class="end-ornament">✦</span>
+    <h2>Suas respostas<br>chegaram com <em>cuidado.</em></h2>
+    <p>
+      Obrigada por compartilhar seu momento com tanta honestidade.<br><br>
+      Vou ler cada resposta com atenção. Se o seu perfil tiver alinhamento com as vagas de acompanhamento abertas, <strong>retorno pessoalmente em até 48h úteis pelo WhatsApp.</strong><br><br>
+      Enquanto isso, fique à vontade para continuar me acompanhando.
+    </p>
+    <div class="success-seal">✦ &nbsp; Laiz Aline · Instrutora MOB &nbsp; ✦</div>
+  </div>
+
+  <!-- DISQUALIFY -->
+  <div class="disqualify-screen" id="disqualify">
+    <span class="end-ornament">◇</span>
+    <h2>Obrigada pela sua<br><em>honestidade.</em></h2>
+    <p>
+      Entendo que nem sempre o momento financeiro e o momento interno estão alinhados — e isso é completamente válido.<br><br>
+      Se quiser dar um primeiro passo no seu ritmo, tenho um material de entrada criado especialmente para mulheres que estão começando essa jornada.
+    </p>
+    <a href="#" class="btn-entry">Conhecer o material de entrada</a>
+  </div>
+
+</div>
+
+<script>
+  let ans = {}, disq3 = false;
+
+  function sel(el, step, isDq) {
+    el.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    ans[step] = el.querySelector('.opt-text').textContent;
+    if (step === 3) disq3 = !!isDq;
+    document.getElementById('n' + step).disabled = false;
+  }
+
+  function go(to) {
+    const from = to > 1 ? to - 1 : to + 1;
+    if (to > from && to === 4 && disq3) { showDq(); return; }
+
+    // hide all steps
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('step-' + to);
+    if (target) { target.classList.add('active'); prog(to); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prog(step) {
+    for (let i = 1; i <= 5; i++) {
+      const d = document.getElementById('d' + i);
+      d.classList.remove('done','active');
+      if (i < step) d.classList.add('done');
+      else if (i === step) d.classList.add('active');
+    }
+  }
+
+  function chk() {
+    const ok = document.getElementById('nome').value.trim().length > 1
+             && document.getElementById('wpp').value.trim().length > 7;
+    document.getElementById('n5').disabled = !ok;
+  }
+
+  function submit() {
+    document.querySelector('.progress-track').style.display = 'none';
+    document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+    document.getElementById('success').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showDq() {
+    document.querySelector('.progress-track').style.display = 'none';
+    document.querySelectorAll('.step').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+    document.getElementById('disqualify').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
