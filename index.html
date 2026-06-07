@@ -619,6 +619,25 @@
   }
 
   function submit() {
+    var nome = document.getElementById('nome').value.trim();
+    var whatsapp = document.getElementById('wpp').value.trim();
+
+    var payload = {
+      nome: nome,
+      whatsapp: whatsapp,
+      pergunta1: ans[1] || '',
+      pergunta2: ans[2] || '',
+      pergunta3: ans[3] || '',
+      pergunta4: ans[4] || ''
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbz9OEe-sNwlpl2ytJ9Am9Br3tX7N2YpqAF_0pJHEdQq6Tr9JutdAxRNvi-NF1sVuQ/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+
     document.querySelector('.progress-track').style.display = 'none';
     document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
     document.getElementById('success').style.display = 'block';
